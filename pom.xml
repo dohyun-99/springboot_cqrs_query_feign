@@ -193,6 +193,12 @@
 		    <artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
 
+		<!--openfeign-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<version>4.1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

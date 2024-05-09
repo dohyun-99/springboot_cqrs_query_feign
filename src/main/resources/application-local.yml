@@ -32,22 +32,22 @@ spring:
         useServerPrepStmts: true
         
 # spring boot - actuator expose
-management:
-  endpoints:
-    health:
-      show-details: always
-      enabled: true
-    loggers:
-      enabled: true  
-    prometheus:
-      enabled: true
-    web:
-      exposure:
-        include: health,prometheus,loggers,metrics,caches,beans
-  endpoint:
-    health:
-      probes:
-        enabled: true
+#management:
+#  endpoints:
+#    health:
+#      show-details: always
+#      enabled: true
+#    loggers:
+#      enabled: true
+#    prometheus:
+#      enabled: true
+#    web:
+#      exposure:
+#        include: health,prometheus,loggers,metrics,caches,beans
+#  endpoint:
+#    health:
+#      probes:
+#        enabled: true
 
 
 # app
@@ -69,3 +69,47 @@ springdoc:
 logging:
   level:
     com.kt.edu: trace
+
+#feign api
+api:
+  edu.url: https://jsonplaceholder.typicode.com # http://localhost:8081/
+
+# spring boot - actuator expose
+management:
+  endpoints:
+    health:
+      show-details: always
+      enabled: true
+    loggers:
+      enabled: true
+    prometheus:
+      enabled: true
+    gateway:
+      enabled: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+#circuitbreaker
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 10 # {통계건수}
+      minimumNumberOfCalls: 10 # {최소요청횟수}
+      failureRateThreshold: 60 # {실패율}
+      slowCallRateThreshold: 60 # {느린요청비율}
+      slowCallDurationThreshold: 3000 # {느린요청으로 간주할 시간}
+      permittedNumberOfCallsInHalfOpenState: 2
+      waitDurationInOpenState: 5s # {Circuit Breaker유지시간}
+      eventConsumerBufferSize: 10
+  instances:
+    apigw:
+      baseConfig: default
+    testcirguitbreaker:
+      baseConfig: default

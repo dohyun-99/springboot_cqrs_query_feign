@@ -81,7 +81,8 @@ public class SecurityConfig {
                                         "/swagger-ui/**",
                                         "/api/login",
                                         "/login",
-                                        "/h2-console/*"
+                                        "/h2-console/*",
+                                        "feign/test"
                                         ).permitAll()
                                 .anyRequest().authenticated()
                                 // make sure we use stateless session; session won't be used to
@@ -96,6 +97,7 @@ public class SecurityConfig {
                                 .frameOptions( // multi login 시 IFRAME 사용 가능하도록
                                         HeadersConfigurer.FrameOptionsConfig::sameOrigin
                                 )
+
         );
 
 
